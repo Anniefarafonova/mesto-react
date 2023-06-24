@@ -3,7 +3,7 @@ import React from 'react'
 
 export default function PopupWithForm({ name, title, button, children, isOpen, onClose }) {
     return (
-        <div className={`popup popup_type_${name} ${isOpen && 'popup_opened'}`}>
+        <div className={`popup popup_type_${name} ${isOpen && 'popup_opened'}`} onClick={onClose}>
             <div className="popup__container">
                 <button
                     type="button"
@@ -12,12 +12,12 @@ export default function PopupWithForm({ name, title, button, children, isOpen, o
                     onClick={onClose}
                 ></button>
                 <form className="form" name={name} noValidate="">
-                    <h2 className={`form__container-title`}>{title}</h2>
+                    <h2 className={`form__container-title ${name ==='confirm' ?"form__container-title_confirm" : " "}` }>{title}</h2>
                     {children}
                     <button
                         type="submit"
                         aria-label="Сохранить"
-                        className="popup__saved-button"
+                        className={`popup__saved-button ${name ==='confirm' ?"popup__saved-button_confirms" : " "}` }
                     >
                         {button || 'Сохранить'}
                     </button>

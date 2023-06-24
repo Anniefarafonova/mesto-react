@@ -4,13 +4,12 @@ import React, { useState, useEffect } from 'react'
 import api from '../../utils/Api';
 import Card from '../Card/Card';
 
-export default function Main({ onEditProfile, onEditAvatar, onAddPlace, onCardClick }) {
+export default function Main({ onEditProfile, onEditAvatar, onAddPlace, onCardClick, onDelete }) {
   const [userName, setUserName] = useState(" ");
   const [userDescription, setUserDescription] = useState(" ");
   const [userAvatar, setUserAvatar] = useState(" ");
   const [card, setCard] = useState([]);
 
-  console.log(card);
   useEffect(() => {
     Promise.all([api.getInfo(), api.getCard()])
       .then(([dataUser, dataCard]) => {
@@ -22,7 +21,6 @@ export default function Main({ onEditProfile, onEditAvatar, onAddPlace, onCardCl
       });
   },[]);
 
-console.log(card);
 
   return (
     <main className="content">
@@ -63,7 +61,6 @@ console.log(card);
         >
           <img
             src={imageAdd}
-            //src="<%=require('./images/add_icon.svg')%>"
             className="profile__add-button-img"
             alt="знак добавить"
           />
@@ -74,7 +71,11 @@ console.log(card);
         {card.map(data => {
           return (
             <div className="elements-template" key={data._id} >
-          <Card card = {data} onCardClick={onCardClick}/>
+          <Card 
+          card = {data} 
+          onCardClick={onCardClick}
+          onDelete={onDelete}
+          />
           </div>
           )
         })}

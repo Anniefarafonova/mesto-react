@@ -1,5 +1,5 @@
 import React from 'react'
-export default function Card({ card, onCardClick }) {
+export default function Card({ card, onCardClick, onDelete }) {
 
     function handleCardClick() {
         onCardClick(card);
@@ -11,16 +11,14 @@ export default function Card({ card, onCardClick }) {
             <img className="element__image"
                 src={card.link}
                 alt={card.name}
-                onClick={handleCardClick} 
-                />
-            <button className="element__delete" aria-label="Значок удаления"></button>
+                onClick={handleCardClick}
+            />
+             {/* {card.myid === card.owner._id && <button className="element__delete" aria-label="Значок удаления" onClick={onDelete}/> } */}
+            <button className="element__delete" aria-label="Значок удаления" onClick={onDelete}></button>
             <div className="element__list">
-                <h2 className="element__title">{card.name}</h2>
-                <button
-                    type="button"
-                    className="element__like-button"
-                    aria-label="Значок лайк"
-                ></button>
+            <h2 className="element__title">{card.name}</h2>
+            <button type="button" className="element__like-button" aria-label="Значок лайк" ></button>
+            <div className="element__like-count">{card.likes.length}</div>
             </div>
         </article>
     )

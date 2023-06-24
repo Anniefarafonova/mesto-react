@@ -23,12 +23,9 @@ function App() {
     setIsAddPlacePopupOpen(true)
   }
 
-  function closeAllPopups() {
-    setIsEditProfilePopupOpen(false)
-    setIsEditAvatarPopupOpen(false)
-    setIsAddPlacePopupOpen(false)
-    // setIsImagePopup(false)
-    setSelectedCard({})
+  const [isDeletePopupOpen, setIsDeletePopupOpen] = useState(false);
+  function handleDeleteClick() {
+    setIsDeletePopupOpen(true)
   }
 
   const [selectedCard, setSelectedCard] = useState({});
@@ -37,11 +34,24 @@ function App() {
   }
 
 
-console.log(selectedCard);
+  function closeAllPopups() {
+    setIsEditProfilePopupOpen(false)
+    setIsEditAvatarPopupOpen(false)
+    setIsAddPlacePopupOpen(false)
+    setIsDeletePopupOpen(false)
+    setSelectedCard({})
+  }
 
 
-  // const [isImagePopup, setIsImagePopup] = useState(false);
-  //setIsImagePopup(true)
+  //Закрытия попапа нажатием на оверлей
+function closeButtonByClickOnOverlay(event) {
+  if (event.target === event.currentTarget) {
+    closeAllPopups()
+  }
+}
+
+
+  
   return (
     <div className="page">
       <Header />
@@ -51,6 +61,7 @@ console.log(selectedCard);
         onEditAvatar={handleEditAvatarClick}
         onAddPlace={handleAddPlaceClick}
         onCardClick={handleCardClick}
+        onDelete={handleDeleteClick}
       />
 
       <Footer />
@@ -59,7 +70,7 @@ console.log(selectedCard);
         name='edit'
         title='Редактировать профиль'
         isOpen={isEditProfilePopupOpen}
-        onClose={closeAllPopups}
+        onClose={closeButtonByClickOnOverlay}
       >
         <div className="form__container-texts">
           <input
@@ -92,7 +103,7 @@ console.log(selectedCard);
         title='Обновить аватар'
         button='Да'
         isOpen={isEditAvatarPopupOpen}
-        onClose={closeAllPopups}
+        onClose={closeButtonByClickOnOverlay}
       >
         <div className="form__container-texts">
           <input
@@ -113,7 +124,7 @@ console.log(selectedCard);
         title='Новое место'
         button='Создать'
         isOpen={isAddPlacePopupOpen}
-        onClose={closeAllPopups}
+        onClose={closeButtonByClickOnOverlay}
       >
         <div className="form__container-texts">
           <input
@@ -144,14 +155,13 @@ console.log(selectedCard);
         name='confirm'
         title='Вы уверены?'
         button='Да'
+        isOpen={isDeletePopupOpen}
+        onClose={closeButtonByClickOnOverlay}
       >
 
       </PopupWithForm>
 
-      <ImagePopup >
-        card = {selectedCard}
-        onClose={closeAllPopups}
-      </ImagePopup >
+      <ImagePopup card = {selectedCard} onClose={closeButtonByClickOnOverlay}/>
 
 
     </div>
