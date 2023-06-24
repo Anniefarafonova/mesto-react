@@ -22,8 +22,6 @@ export default function Main({ onEditProfile, onEditAvatar, onAddPlace, onCardCl
       .catch((error) => console.error(`Ошибка при начальных данный страницы ${error}`));
   },[]);
   
-  
-
   return (
     <main className="content">
       <section className="profile">

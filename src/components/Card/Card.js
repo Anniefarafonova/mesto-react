@@ -24,7 +24,6 @@ export default function Card({ card, onCardClick, onDelete }) {
     )
 }
 
-
 // export default function Card({ card, onCardClick }) {
 
 //     return (

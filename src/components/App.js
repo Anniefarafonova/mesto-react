@@ -6,7 +6,6 @@ import Footer from './Footer/Footer.js';
 import PopupWithForm from './PopupWithForm/PopupWithForm.js';
 import ImagePopup from './ImagePopup/ImagePopup.js';
 
-
 function App() {
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false);
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = useState(false);
@@ -33,7 +32,6 @@ function App() {
   function handleCardClick(card) {
     setSelectedCard(card)
   }
-
 
   function closeAllPopups() {
     setIsEditProfilePopupOpen(false)
