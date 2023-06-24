@@ -18,9 +18,11 @@ export default function Main({ onEditProfile, onEditAvatar, onAddPlace, onCardCl
         setUserAvatar(dataUser.avatar)
         dataCard.forEach(card => card.myid = dataUser._id)
         setCard(dataCard)
-      });
+      })
+      .catch((error) => console.error(`Ошибка при начальных данный страницы ${error}`));
   },[]);
-
+  
+  
 
   return (
     <main className="content">

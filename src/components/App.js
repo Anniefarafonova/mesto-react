@@ -9,26 +9,27 @@ import ImagePopup from './ImagePopup/ImagePopup.js';
 
 function App() {
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false);
+  const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = useState(false);
+  const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = useState(false);
+  const [isDeletePopupOpen, setIsDeletePopupOpen] = useState(false);
+  const [selectedCard, setSelectedCard] = useState({});
+
   function handleEditProfileClick() {
     setIsEditProfilePopupOpen(true)
   }
 
-  const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = useState(false);
   function handleEditAvatarClick() {
     setIsEditAvatarPopupOpen(true)
   }
 
-  const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = useState(false);
   function handleAddPlaceClick() {
     setIsAddPlacePopupOpen(true)
   }
 
-  const [isDeletePopupOpen, setIsDeletePopupOpen] = useState(false);
   function handleDeleteClick() {
     setIsDeletePopupOpen(true)
   }
 
-  const [selectedCard, setSelectedCard] = useState({});
   function handleCardClick(card) {
     setSelectedCard(card)
   }
@@ -42,7 +43,6 @@ function App() {
     setSelectedCard({})
   }
 
-
   //Закрытия попапа нажатием на оверлей
 function closeButtonByClickOnOverlay(event) {
   if (event.target === event.currentTarget) {
@@ -50,8 +50,6 @@ function closeButtonByClickOnOverlay(event) {
   }
 }
 
-
-  
   return (
     <div className="page">
       <Header />
@@ -118,7 +116,6 @@ function closeButtonByClickOnOverlay(event) {
         </div>
       </PopupWithForm>
 
-
       <PopupWithForm
         name='add'
         title='Новое место'
@@ -150,7 +147,6 @@ function closeButtonByClickOnOverlay(event) {
         </div>
       </PopupWithForm>
 
-
       <PopupWithForm
         name='confirm'
         title='Вы уверены?'
@@ -162,7 +158,6 @@ function closeButtonByClickOnOverlay(event) {
       </PopupWithForm>
 
       <ImagePopup card = {selectedCard} onClose={closeButtonByClickOnOverlay}/>
-
 
     </div>
   );
