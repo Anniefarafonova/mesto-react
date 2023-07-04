@@ -1,27 +1,15 @@
 import imageEdit from '../../images/Vector.svg'
 import imageAdd from '../../images/add_icon.svg'
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 import api from '../../utils/Api';
 import Card from '../Card/Card';
+import { CurrentUserContext } from '../../contexts/CurrentUserContextt/CurrentUserContext';
 
-export default function Main({ onEditProfile, onEditAvatar, onAddPlace, onCardClick, onDelete }) {
-  const [userName, setUserName] = useState(" ");
-  const [userDescription, setUserDescription] = useState(" ");
-  const [userAvatar, setUserAvatar] = useState(" ");
-  const [card, setCard] = useState([]);
 
-  useEffect(() => {
-    Promise.all([api.getInfo(), api.getCard()])
-      .then(([dataUser, dataCard]) => {
-        setUserName(dataUser.name)
-        setUserDescription(dataUser.about)
-        setUserAvatar(dataUser.avatar)
-        dataCard.forEach(card => card.myid = dataUser._id)
-        setCard(dataCard)
-      })
-      .catch((error) => console.error(`Ошибка при начальных данный страницы ${error}`));
-  },[]);
-  
+
+export default function Main({ onEditProfile, onEditAvatar, onAddPlace, onCardClick, onDelete, card, onCardLike, onCardDelete }) {
+  const currentUser = useContext(CurrentUserContext)
+
   return (
     <main className="content">
       <section className="profile">
@@ -32,10 +20,10 @@ export default function Main({ onEditProfile, onEditAvatar, onAddPlace, onCardCl
             className="profile__avatar-button"
             onClick={onEditAvatar}
           />
-          <img className="profile__avatar" src={userAvatar} alt="обложка" />
+          <img className="profile__avatar" src={currentUser.avatar} alt="обложка" />
           <div className="profile__info">
             <div className="profile__text">
-              <h1 className="profile__title"> {userName}</h1>
+              <h1 className="profile__title"> {currentUser.name}</h1>
               <button
                 type="button"
                 aria-label="Редактировать"
@@ -50,7 +38,7 @@ export default function Main({ onEditProfile, onEditAvatar, onAddPlace, onCardCl
                 />
               </button>
             </div>
-            <p className="profile__subtitle" >{userDescription}</p>
+            <p className="profile__subtitle" >{currentUser.about}</p>
           </div>
         </div>
         <button
@@ -75,6 +63,8 @@ export default function Main({ onEditProfile, onEditAvatar, onAddPlace, onCardCl
           card = {data} 
           onCardClick={onCardClick}
           onDelete={onDelete}
+          onCardLike={onCardLike}
+          onCardDelete={onCardDelete}
           />
           </div>
           )
