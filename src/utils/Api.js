@@ -79,6 +79,14 @@ class Api {
       })
       .then(this._checkResponse)
     }
+    changeLikeCardStatus(cardId, isLiked){
+      if (isLiked) {
+        return this.addLike(cardId);
+    } else if (!isLiked){
+        return this.deleteLike(cardId);
+    }
+  }
+
     deleteCard(cardId){
       return fetch(`${this._url}/cards/${cardId}`, {
         method: 'DELETE',

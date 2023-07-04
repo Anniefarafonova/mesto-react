@@ -7,6 +7,8 @@ import PopupWithForm from './PopupWithForm/PopupWithForm.js';
 import ImagePopup from './ImagePopup/ImagePopup.js';
 import { CurrentUserContext } from '../contexts/CurrentUserContextt/CurrentUserContext.js';
 import api from '../utils/Api.js';
+import EditProfilePopup from './EditProfilePopup/EditProfilePopup.js';
+import EditAvatarPopup from './EditAvatarPopup/EditAvatarPopup.js';
 
 function App() {
   // стейт попапов
@@ -20,6 +22,7 @@ function App() {
   const [currentUser, setCurrentUser] = useState({});
   // стейт карточки
   const [card, setCard] = useState([]);
+  const [deleteId, setDeleteId] = useState('');
 
 
   function handleEditProfileClick() {
@@ -34,7 +37,8 @@ function App() {
     setIsAddPlacePopupOpen(true)
   }
 
-  function handleDeleteClick() {
+  function handleDeleteClick(cardId) {
+    setDeleteId(cardId)
     setIsDeletePopupOpen(true)
   }
 
@@ -56,11 +60,9 @@ function App() {
       closeAllPopups()
     }
   }
-//Функция лайка
+  //Функция лайка
   function handleCardLike(card) {
-    // Снова проверяем, есть ли уже лайк на этой карточке
     const isLiked = card.likes.some(i => i._id === currentUser._id);
-    // Отправляем запрос в API и получаем обновлённые данные карточки
     api
       .changeLikeCardStatus(card._id, !isLiked)
       .then((newCard) => {
@@ -68,17 +70,52 @@ function App() {
       })
       .catch((error) => console.error(`Ошибка like ${error}`));
   }
-//Функция удаления
-  function handleCardDelete(card) {
-  const isOwn = card.owner._id === currentUser._id;
-    
-   api
-   .changeCardStatus(card._id)
-   .then(() => {
-        setCard((state) => state.filter((c) => c._id === card._id ));
-    })
-    .catch((error) => console.error(`Ошибка delete ${error}`));
-} 
+  //Функция удаления
+  //   function handleCardDelete (card) {
+  //   const isOwn = card.owner._id === currentUser._id;
+  //    api
+  //    .deleteCard(card._id)
+  //    .then(() => {
+  //         setCard((state) => state.filter((c) => c._id === card._id ));
+  //         closeAllPopups()
+  //     })
+  //     .catch((error) => console.error(`Ошибка delete ${error}`));
+  // } 
+
+  function handleCardDeleteSubmit(evt) {
+    evt.preventDefault()
+    api
+      .deleteCard(deleteId)
+      .then(() => {
+        setCard(card.filter((card) => {
+          return card._id !== deleteId
+        }))
+
+        // setCard((state) => state.filter((c) => c._id === card._id ));
+        closeAllPopups()
+      })
+      .catch((error) => console.error(`Ошибка delete ${error}`));
+  }
+  //функция отображения данных
+  function handleUpdateUser(data) {
+    api
+      .setUserInfo(data)
+      .then((data) => {
+        setCurrentUser(data)
+        closeAllPopups()
+      })
+      .catch((error) => console.error(`Ошибка отправка формы с юзер данными (аватар) ${error}`));
+  }
+  //функция отображения аватарки
+  function handleUpdateAvatar(data) {
+    api
+      .setUserAvatar(data)
+      .then((data) => {
+        setCurrentUser(data)
+        closeAllPopups()
+      })
+      .catch((error) => console.error(`Ошибка отправка формы с юзер данными ${error}`));
+  }
 
 
   useEffect(() => {
@@ -103,64 +140,16 @@ function App() {
           onCardClick={handleCardClick}
           onDelete={handleDeleteClick}
           onCardLike={handleCardLike}
-          onCardDelete={handleCardDelete}
+          // onCardDelete={handleCardDelete}
           card={card}
-     
+
         />
 
         <Footer />
 
-        <PopupWithForm
-          name='edit'
-          title='Редактировать профиль'
-          isOpen={isEditProfilePopupOpen}
-          onClose={closeButtonByClickOnOverlay}
-        >
-          <div className="form__container-texts">
-            <input
-              id="name"
-              type="text"
-              placeholder="Имя"
-              minLength={2}
-              maxLength={40}
-              name="firstname"
-              className="form__item form__item_type_name"
-              required=""
-            />
-            <span id="name-error" className="error" />
-            <input
-              id="text"
-              type="text"
-              placeholder="О себе"
-              minLength={2}
-              maxLength={200}
-              name="description"
-              className="form__item form__item_type_job"
-              required=""
-            />
-            <span id="text-error" className="error" />
-          </div>
-        </PopupWithForm>
-
-        <PopupWithForm
-          name='avatar'
-          title='Обновить аватар'
-          button='Да'
-          isOpen={isEditAvatarPopupOpen}
-          onClose={closeButtonByClickOnOverlay}
-        >
-          <div className="form__container-texts">
-            <input
-              id="avatar"
-              type="url"
-              placeholder="Ссылка на картинку аватара"
-              name="avatar"
-              className="form__item form__item_type_job"
-              required=""
-            />
-            <span id="avatar-error" className="error" />
-          </div>
-        </PopupWithForm>
+        <EditProfilePopup isOpen={isEditProfilePopupOpen} onClose={closeButtonByClickOnOverlay} onUpdateUser={handleUpdateUser}
+        />
+        <EditAvatarPopup isOpen={isEditAvatarPopupOpen} onClose={closeButtonByClickOnOverlay} onUpdateAvatar={handleUpdateAvatar}/>
 
         <PopupWithForm
           name='add'
@@ -199,6 +188,7 @@ function App() {
           button='Да'
           isOpen={isDeletePopupOpen}
           onClose={closeButtonByClickOnOverlay}
+          onSubmit={handleCardDeleteSubmit}
         >
 
         </PopupWithForm>

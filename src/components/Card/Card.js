@@ -19,11 +19,14 @@ export default function Card({ card, onCardClick, onDelete, onCardLike, onCardDe
     function handleLikeClick() {
         onCardLike(card);
     }
-    function handleDeleteClick() {
-        onCardDelete(card);
-    }
-
-
+    //   function handleDeleteClick () {
+    //     onDelete(card)
+     
+    // }
+    // function handleDeleteClick () {
+    //     // onDelete(card)
+    //     onCardDelete(card);
+    // }
     return (
         <article className="element">
             <img className="element__image"
@@ -31,11 +34,8 @@ export default function Card({ card, onCardClick, onDelete, onCardLike, onCardDe
                 alt={card.name}
                 onClick={handleCardClick}
             />
-
             {/* <button className="element__delete" aria-label="Значок удаления" onClick={onDelete}/>  */}
-            {isOwn && <button className="element__delete" onClick={handleDeleteClick} />}
-
-
+            {isOwn && <button className="element__delete" onClick={() => onDelete(card._id)} />}
             <div className="element__list">
                 <h2 className="element__title">{card.name}</h2>
                 {/* <button type="button" className="element__like-button" aria-label="Значок лайк" ></button> */}
