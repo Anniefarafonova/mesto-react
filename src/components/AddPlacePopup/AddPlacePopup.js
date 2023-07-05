@@ -22,7 +22,6 @@ export default function AddPlacePopup(isOpen, onClose, onAddPlace){
         setLink(e.target.value);
     }
 
-
     return(
         <PopupWithForm
           name='add'
@@ -30,7 +29,7 @@ export default function AddPlacePopup(isOpen, onClose, onAddPlace){
           button='Создать'
           isOpen={isOpen}
           onClose={onClose}
-          onSubmit={handleSubmit}
+          onClick={handleSubmit}
         >
           <div className="form__container-texts">
             <input
