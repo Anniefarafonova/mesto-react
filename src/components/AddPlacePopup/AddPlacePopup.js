@@ -5,6 +5,11 @@ export default function AddPlacePopup({isOpen, onClose, onAddPlace}){
     const [title, setTitle] = useState("");
     const [link, setLink] = useState("");
 
+    useEffect(() => {
+        setTitle('');
+        setLink('');
+    }, [isOpen]);
+
     function handleSubmit(e) {
         e.preventDefault();
         onAddPlace({
@@ -18,6 +23,9 @@ export default function AddPlacePopup({isOpen, onClose, onAddPlace}){
     function handleChangeLink(e) {
         setLink(e.target.value);
     }
+
+
+
     return(
         <PopupWithForm
           name='add'
@@ -38,6 +46,7 @@ export default function AddPlacePopup({isOpen, onClose, onAddPlace}){
               className="form__item form__item_type_name"
               required=""
               onChange={handleChangeTitle}
+              value={title}
             />
             <span id="title-error" className="error" />
             <input
@@ -48,6 +57,7 @@ export default function AddPlacePopup({isOpen, onClose, onAddPlace}){
               className="form__item form__item_type_job"
               required=""
               onChange={handleChangeLink}
+              value={link}
             />
             <span id="link-error" className="error" />
           </div>
