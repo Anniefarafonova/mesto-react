@@ -9,6 +9,7 @@ import { CurrentUserContext } from '../contexts/CurrentUserContextt/CurrentUserC
 import api from '../utils/Api.js';
 import EditProfilePopup from './EditProfilePopup/EditProfilePopup.js';
 import EditAvatarPopup from './EditAvatarPopup/EditAvatarPopup.js';
+import AddPlacePopup from './AddPlacePopup/AddPlacePopup.js';
 
 function App() {
   // стейт попапов
@@ -42,8 +43,8 @@ function App() {
     setIsDeletePopupOpen(true)
   }
 
-  function handleCardClick(card) {
-    setSelectedCard(card)
+  function handleCardClick() {
+    setSelectedCard(true)
   }
 
   function closeAllPopups() {
@@ -117,6 +118,17 @@ function App() {
       .catch((error) => console.error(`Ошибка отправка формы с юзер данными ${error}`));
   }
 
+  function handleAddPlaceSubmit(data) {
+    api
+      .addCard(data)
+      .then((data) => {
+        setCard([data, ...card]); 
+        closeAllPopups()
+      })
+      .catch((error) => console.error(`Ошибка отправка добавлении карточки ${error}`));
+  }
+
+
 
   useEffect(() => {
     Promise.all([api.getInfo(), api.getCard()])
@@ -142,7 +154,7 @@ function App() {
           onCardLike={handleCardLike}
           // onCardDelete={handleCardDelete}
           card={card}
-
+           
         />
 
         <Footer />
@@ -150,37 +162,9 @@ function App() {
         <EditProfilePopup isOpen={isEditProfilePopupOpen} onClose={closeButtonByClickOnOverlay} onUpdateUser={handleUpdateUser}
         />
         <EditAvatarPopup isOpen={isEditAvatarPopupOpen} onClose={closeButtonByClickOnOverlay} onUpdateAvatar={handleUpdateAvatar}/>
+        <AddPlacePopup isOpen={isAddPlacePopupOpen} onClose={closeButtonByClickOnOverlay} onAddPlace ={handleAddPlaceSubmit}/>
 
-        <PopupWithForm
-          name='add'
-          title='Новое место'
-          button='Создать'
-          isOpen={isAddPlacePopupOpen}
-          onClose={closeButtonByClickOnOverlay}
-        >
-          <div className="form__container-texts">
-            <input
-              id="title"
-              type="text"
-              placeholder="Название"
-              minLength={2}
-              maxLength={30}
-              name="title"
-              className="form__item form__item_type_name"
-              required=""
-            />
-            <span id="title-error" className="error" />
-            <input
-              id="link"
-              type="url"
-              placeholder="Ссылка на картинку"
-              name="link"
-              className="form__item form__item_type_job"
-              required=""
-            />
-            <span id="link-error" className="error" />
-          </div>
-        </PopupWithForm>
+        
 
         <PopupWithForm
           name='confirm'
