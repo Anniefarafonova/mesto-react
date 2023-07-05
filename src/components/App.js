@@ -43,8 +43,8 @@ function App() {
     setIsDeletePopupOpen(true)
   }
 
-  function handleCardClick() {
-    setSelectedCard(true)
+  function handleCardClick(card) {
+    setSelectedCard(card)
   }
 
   function closeAllPopups() {
@@ -161,10 +161,10 @@ function App() {
 
         <EditProfilePopup isOpen={isEditProfilePopupOpen} onClose={closeButtonByClickOnOverlay} onUpdateUser={handleUpdateUser}
         />
-        <EditAvatarPopup isOpen={isEditAvatarPopupOpen} onClose={closeButtonByClickOnOverlay} onUpdateAvatar={handleUpdateAvatar}/>
-        <AddPlacePopup isOpen={isAddPlacePopupOpen} onClose={closeAllPopups} onAddPlace ={handleAddPlaceSubmit}/>
 
-        
+        <EditAvatarPopup isOpen={isEditAvatarPopupOpen} onClose={closeButtonByClickOnOverlay} onUpdateAvatar={handleUpdateAvatar}/>
+
+        <AddPlacePopup isOpen={isAddPlacePopupOpen} onClose={closeButtonByClickOnOverlay} onAddPlace ={handleAddPlaceSubmit}/>
 
         <PopupWithForm
           name='confirm'
@@ -173,10 +173,7 @@ function App() {
           isOpen={isDeletePopupOpen}
           onClose={closeButtonByClickOnOverlay}
           onSubmit={handleCardDeleteSubmit}
-        >
-
-        </PopupWithForm>
-
+        />
         <ImagePopup card={selectedCard} onClose={closeButtonByClickOnOverlay} />
 
       </div>
@@ -185,8 +182,3 @@ function App() {
 }
 
 export default App;
-
-// // isOpen={selectedCard}
-// {/* card = {selectedCard}
-//         isOpen={isImagePopup}
-//         onClose={closeAllPopups} */}

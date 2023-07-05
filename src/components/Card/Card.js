@@ -19,14 +19,7 @@ export default function Card({ card, onCardClick, onDelete, onCardLike, onCardDe
     function handleLikeClick() {
         onCardLike(card);
     }
-    //   function handleDeleteClick () {
-    //     onDelete(card)
-     
-    // }
-    // function handleDeleteClick () {
-    //     // onDelete(card)
-    //     onCardDelete(card);
-    // }
+   
     return (
         <article className="element">
             <img className="element__image"
@@ -38,28 +31,12 @@ export default function Card({ card, onCardClick, onDelete, onCardLike, onCardDe
             {isOwn && <button className="element__delete" onClick={() => onDelete(card._id)} />}
             <div className="element__list">
                 <h2 className="element__title">{card.name}</h2>
+                <div className="element__button-container">
                 {/* <button type="button" className="element__like-button" aria-label="Значок лайк" ></button> */}
                 <button type="button" className={cardLikeButtonClassName} aria-label="Значок лайк" onClick={handleLikeClick} ></button>
                 <div className="element__like-count">{card.likes.length}</div>
+                </div>
             </div>
         </article>
     )
 }
-
-// export default function Card({ card, onCardClick }) {
-
-//     return (
-//         <article className="element">
-//             <img className="element__image" src={card.link} alt={card.name} onClick={() => onCardClick({link: card.link, name: card.name})} />
-//             <button className="element__delete" aria-label="Значок удаления"></button>
-//             <div className="element__list">
-//                 <h2 className="element__title">{card.name}</h2>
-//                 <button
-//                     type="button"
-//                     className="element__like-button"
-//                     aria-label="Значок лайк"
-//                 ></button>
-//             </div>
-//         </article>
-//     )
-// }

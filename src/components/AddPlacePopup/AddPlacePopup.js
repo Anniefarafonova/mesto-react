@@ -1,11 +1,10 @@
 import PopupWithForm from "../PopupWithForm/PopupWithForm"
 import { useState, useEffect } from "react";
 
-export default function AddPlacePopup(isOpen, onClose, onAddPlace){
+export default function AddPlacePopup({isOpen, onClose, onAddPlace}){
     const [title, setTitle] = useState("");
     const [link, setLink] = useState("");
 
- 
     function handleSubmit(e) {
         e.preventDefault();
         onAddPlace({
@@ -13,15 +12,12 @@ export default function AddPlacePopup(isOpen, onClose, onAddPlace){
             link: link,
         });
     }
-
     function handleChangeTitle(e) {
         setTitle(e.target.value);
     }
-
     function handleChangeLink(e) {
         setLink(e.target.value);
     }
-
     return(
         <PopupWithForm
           name='add'
@@ -29,7 +25,7 @@ export default function AddPlacePopup(isOpen, onClose, onAddPlace){
           button='Создать'
           isOpen={isOpen}
           onClose={onClose}
-          onClick={handleSubmit}
+          onSubmit={handleSubmit}
         >
           <div className="form__container-texts">
             <input
