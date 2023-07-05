@@ -18,35 +18,34 @@ function App() {
   const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = useState(false);
   const [isDeletePopupOpen, setIsDeletePopupOpen] = useState(false);
   const [selectedCard, setSelectedCard] = useState({});
-
   // стейт контекст
   const [currentUser, setCurrentUser] = useState({});
   // стейт карточки
   const [card, setCard] = useState([]);
   const [deleteId, setDeleteId] = useState('');
 
-
+//функция открытия Edit
   function handleEditProfileClick() {
     setIsEditProfilePopupOpen(true)
   }
-
+//функция открытия EditAvatar
   function handleEditAvatarClick() {
     setIsEditAvatarPopupOpen(true)
   }
-
+//функция открытия Add
   function handleAddPlaceClick() {
     setIsAddPlacePopupOpen(true)
   }
-
+  //функция открытия Delete
   function handleDeleteClick(cardId) {
     setDeleteId(cardId)
     setIsDeletePopupOpen(true)
   }
-
+ //функция открытия Card
   function handleCardClick(card) {
     setSelectedCard(card)
   }
-
+ //функция закрытия попапоы
   function closeAllPopups() {
     setIsEditProfilePopupOpen(false)
     setIsEditAvatarPopupOpen(false)
@@ -54,7 +53,6 @@ function App() {
     setIsDeletePopupOpen(false)
     setSelectedCard({})
   }
-
   //Закрытия попапа нажатием на оверлей
   function closeButtonByClickOnOverlay(event) {
     if (event.target === event.currentTarget) {
@@ -82,7 +80,7 @@ function App() {
   //     })
   //     .catch((error) => console.error(`Ошибка delete ${error}`));
   // } 
-
+ //Функция удаления
   function handleCardDeleteSubmit(evt) {
     evt.preventDefault()
     api
@@ -91,13 +89,11 @@ function App() {
         setCard(card.filter((card) => {
           return card._id !== deleteId
         }))
-
-        // setCard((state) => state.filter((c) => c._id === card._id ));
         closeAllPopups()
       })
       .catch((error) => console.error(`Ошибка delete ${error}`));
   }
-  //функция отображения данных
+  //функция отображения данных Edit(описание)
   function handleUpdateUser(data) {
     api
       .setUserInfo(data)
@@ -117,7 +113,7 @@ function App() {
       })
       .catch((error) => console.error(`Ошибка отправка формы с юзер данными ${error}`));
   }
-
+ //функция добавления карточки
   function handleAddPlaceSubmit(data) {
     api
       .addCard(data)
@@ -128,8 +124,7 @@ function App() {
       .catch((error) => console.error(`Ошибка отправка добавлении карточки ${error}`));
   }
 
-
-
+//функция Api
   useEffect(() => {
     Promise.all([api.getInfo(), api.getCard()])
       .then(([dataUser, dataCard]) => {
@@ -143,6 +138,7 @@ function App() {
   return (
     <CurrentUserContext.Provider value={currentUser}>
       <div className="page">
+
         <Header />
 
         <Main
@@ -154,7 +150,6 @@ function App() {
           onCardLike={handleCardLike}
           // onCardDelete={handleCardDelete}
           card={card}
-           
         />
 
         <Footer />
@@ -175,7 +170,6 @@ function App() {
           onSubmit={handleCardDeleteSubmit}
         />
         <ImagePopup card={selectedCard} onClose={closeButtonByClickOnOverlay} />
-
       </div>
     </CurrentUserContext.Provider>
   );
