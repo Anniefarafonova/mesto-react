@@ -6,10 +6,11 @@ export default function EditProfilePopup({ isOpen, onClose, onUpdateUser }) {
     const [name, setName] = useState("");
     const [description, setDescription] = useState("");
     const currentUser = useContext(CurrentUserContext);
+    
     useEffect(() => {
         setName(currentUser.name);
         setDescription(currentUser.about);
-    },  [currentUser, isOpen]);
+    }, [currentUser, isOpen]);
     //функция события отправки формы (имя, о себе)
     function handleSubmit(e) {
         e.preventDefault();
@@ -45,9 +46,10 @@ export default function EditProfilePopup({ isOpen, onClose, onUpdateUser }) {
                     className="form__item form__item_type_name"
                     required=""
                     onChange={handleChangeName}
-                    value={name}
+                    value={name || ''}
+                   
                 />
-                <span id="name-error" className="error" />
+                <span id="name-error" className="error" ></span>
                 <input
                     id="text"
                     type="text"
@@ -58,7 +60,8 @@ export default function EditProfilePopup({ isOpen, onClose, onUpdateUser }) {
                     className="form__item form__item_type_job"
                     required=""
                     onChange={handleChangeDescription}
-                    value={description}
+                    value={description || ''}
+                    
                 />
                 <span id="text-error" className="error" />
             </div>

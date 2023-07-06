@@ -46,7 +46,7 @@ export default function AddPlacePopup({isOpen, onClose, onAddPlace}){
               className="form__item form__item_type_name"
               required=""
               onChange={handleChangeTitle}
-              value={title}
+              value={title || ''}
             />
             <span id="title-error" className="error" />
             <input
@@ -57,7 +57,7 @@ export default function AddPlacePopup({isOpen, onClose, onAddPlace}){
               className="form__item form__item_type_job"
               required=""
               onChange={handleChangeLink}
-              value={link}
+              value={link || ''}
             />
             <span id="link-error" className="error" />
           </div>
