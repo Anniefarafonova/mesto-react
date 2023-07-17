@@ -4,13 +4,25 @@ import React, { useState, useEffect, useContext } from 'react'
 import api from '../../utils/Api';
 import Card from '../Card/Card';
 import { CurrentUserContext } from '../../contexts/CurrentUserContextt/CurrentUserContext';
-
+import Header from '../Header/Header';
+import imageLogo from '../../images/logo.svg'
+import { Link } from 'react-router-dom';
 
 
 export default function Main({ onEditProfile, onEditAvatar, onAddPlace, onCardClick, onDelete, card, onCardLike, onCardDelete }) {
   const currentUser = useContext(CurrentUserContext)
 
   return (
+    <>
+    <header className="header login">
+                <img
+                    className="header__logo"
+                    src={imageLogo}
+                    alt="Логотип" />
+                <Link to="/sign-in" className='login__text'>
+                    Выйти
+                </Link>
+            </header>
     <main className="content">
       <section className="profile">
         <div className="profile__list">
@@ -72,5 +84,6 @@ export default function Main({ onEditProfile, onEditAvatar, onAddPlace, onCardCl
         </div>
       </section>
     </main>
+    </>
   )
 }
