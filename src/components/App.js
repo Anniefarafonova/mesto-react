@@ -15,9 +15,9 @@ import Login from './Login/Login.js';
 import Register from './Register/Register.js';
 import ProtectedRouteElement from './ProtectedRoute/ProtectedRoute.js';
 import InfoTooltip from './InfoTooltip/InfoTooltip.js';
-import { authorize, register } from '../utils/Auth.js';
+import { authorize, register, tokennCheck } from '../utils/Auth.js';
 import * as Auth from "../utils/Auth";
-import { tokenCheck } from '../utils/Auth';
+
 
 function App() {
   const navigate = useNavigate();
@@ -149,22 +149,20 @@ function App() {
 
   //проверка токена
   useEffect(() => {
-    // настало время проверить токен
     getTokenCheck();
   }, [])
 
   const getTokenCheck = () => {
-    // если у пользователя есть токен в localStorage, 
-    // эта функция проверит, действующий он или нет
-    // проверьте, есть ли jwt токен в локальном хранилище браузера
     if (localStorage.getItem('jwt')) {
       const jwt = localStorage.getItem('jwt');
-      Auth.tokenCheck(jwt).then((res) => {
-        if (res) {
-          setLoggedIn(true);
-          navigate("/", { replace: true })
-        }
-      });
+      Auth
+        .tokenCheck(jwt)
+        .then((res) => {
+          if (res) {
+            setLoggedIn(true);
+            navigate("/", { replace: true })
+          }
+        });
     }
   }
 
@@ -203,17 +201,26 @@ function App() {
               card={card}
             />}/> */}
 
-          <Route path="/" element={<ProtectedRouteElement
-            element={<Main
-              onEditProfile={handleEditProfileClick}
-              onEditAvatar={handleEditAvatarClick}
-              onAddPlace={handleAddPlaceClick}
-              onCardClick={handleCardClick}
-              onDelete={handleDeleteClick}
-              onCardLike={handleCardLike}
-              card={card}
-            />}
-            loggedIn={loggedIn} />} />
+          <Route path="/"
+            element={
+              <ProtectedRouteElement
+                element={(props) => (
+                  <Main
+                    onEditProfile={handleEditProfileClick}
+                    onEditAvatar={handleEditAvatarClick}
+                    onAddPlace={handleAddPlaceClick}
+                    onCardClick={handleCardClick}
+                    onDelete={handleDeleteClick}
+                    onCardLike={handleCardLike}
+                    card={card}
+                    {...props}
+                  />
+                )}
+                loggedIn={loggedIn} />
+            }
+          />
+
+
 
         </Routes>
         <Footer />
@@ -244,3 +251,17 @@ function App() {
 
 
 export default App;
+
+
+
+{/* <Route path="/" element={<ProtectedRouteElement
+  element={<Main
+    onEditProfile={handleEditProfileClick}
+    onEditAvatar={handleEditAvatarClick}
+    onAddPlace={handleAddPlaceClick}
+    onCardClick={handleCardClick}
+    onDelete={handleDeleteClick}
+    onCardLike={handleCardLike}
+    card={card}
+  />}
+  loggedIn={loggedIn} />} /> */}

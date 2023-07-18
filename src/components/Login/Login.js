@@ -31,12 +31,12 @@ export default function Login({ onLogin }) {
     }
     Auth.authorize(formValue.password, formValue.email)
       .then((data) => {
-        // if (data.jwt) {
-        //   setFormValue({ password: '', email: '' });
+        // if (data) {
+          setFormValue({ password: '', email: '' });
           onLogin()
           navigate('/', { replace: true });
-        // }
-      })
+        })
+      // })
       .catch(err => console.log(err));
   }
   return (

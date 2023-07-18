@@ -14,7 +14,7 @@ export default function Main({ onEditProfile, onEditAvatar, onAddPlace, onCardCl
 
   return (
     <>
-    <header className="header login">
+    {/* <header className="header login">
                 <img
                     className="header__logo"
                     src={imageLogo}
@@ -22,7 +22,7 @@ export default function Main({ onEditProfile, onEditAvatar, onAddPlace, onCardCl
                 <Link to="/sign-in" className='login__text'>
                     Выйти
                 </Link>
-            </header>
+            </header> */}
     <main className="content">
       <section className="profile">
         <div className="profile__list">
