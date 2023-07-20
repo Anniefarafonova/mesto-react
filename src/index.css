@@ -38,6 +38,7 @@
 @import url(./blocks/header/header.css);
 @import url(./blocks/header/__logo/header__logo.css);
 @import url(./blocks/header/__list/header__list.css);
+@import url(./blocks/header/__block/header__block.css);
 
 @import url(./blocks/page/page.css);
 

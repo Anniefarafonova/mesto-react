@@ -1,5 +1,5 @@
 .header__list{
-    width: 114px;
+    min-width: 114px;
     font-family: 'Inter';
     font-style: normal;
     font-weight: 400;

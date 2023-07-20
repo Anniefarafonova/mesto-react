@@ -22,10 +22,10 @@ export default function Login({ onLogin }) {
   const handleSubmit = (e) => {
     e.preventDefault();
     // // здесь нужно будет добавить логин
-    if (!formValue.password || !formValue.email) {
-      return;
-    }
-    onLogin()
+    // if (!formValue.password || !formValue.email) {
+    //   return;
+    // }
+    onLogin(formValue.password, formValue.email)
     
   }
 

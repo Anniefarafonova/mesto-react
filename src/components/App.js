@@ -52,9 +52,9 @@ function App() {
     setIsAddPlacePopupOpen(true)
   }
   //функция открытия InfoTooltip
-  function handleInfoClick() {
-    setIsInfoTooltipPopupOpen(true)
-  }
+  // function handleInfoClick() {
+  //   setIsInfoTooltipPopupOpen(true)
+  // }
   //функция открытия Delete
   function handleDeleteClick(cardId) {
     setDeleteId(cardId)
@@ -64,10 +64,7 @@ function App() {
   function handleCardClick(card) {
     setSelectedCard(card)
   }
-   //функция email
-   function handleEmail(email) {
-    setEmail(email)
-  }
+
 
   //функция закрытия попапоы
   function closeAllPopups() {
@@ -144,13 +141,14 @@ function App() {
     Auth
       .register(password, email)
       .then((res) => {
+        setIsInfoTooltipPopupOpen(true)
         setIsDone(true)
-        handleInfoClick()
+        // handleInfoClick(true)
         navigate('/sign-in', { replace: true });
       })
       .catch((error) => console.error(`Ошибка при регистрации ${error}`))
+    setIsInfoTooltipPopupOpen(true)
     setIsDone(false)
-    handleInfoClick()
   }
   //функция авторизации
   function onLogin(password, email) {
@@ -164,9 +162,8 @@ function App() {
       })
       // })
       .catch(err => console.log(err));
-    setLoggedIn(false)
-    setIsDone(false)
-    handleInfoClick()
+      setIsInfoTooltipPopupOpen(true)
+      setIsDone(false)
   }
 
   //проверка токена
