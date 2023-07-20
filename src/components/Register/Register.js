@@ -30,15 +30,11 @@ export default function Register({ onRegister }) {
     }
     return (
         <>
-            {/* <header className="header login">
-                <img
-                    className="header__logo"
-                    src={imageLogo}
-                    alt="Логотип" />
-                <Link to="/sign-in" className='login__text'>
+            <Header>
+                <Link to="/sign-in" className='header__list'>
                     Войти
                 </Link> 
-            </header> */}
+            </Header>
             <main className="content">
                 <section className="login">
                     <div className="login__container">
@@ -50,7 +46,7 @@ export default function Register({ onRegister }) {
                                 <input id="email" type="email" placeholder="Электронная почта" name="email"
                                     className="form__item form__item_type_job form__item_login-email" required onChange={handleChange} value={valuesRegister.email} autoComplete="email" />
                             </div>
-                            <button type="submit" aria-label="Зарегистрироваться" className="popup__saved-button popup__saved-button_login" >Зарегистрироваться</button>
+                            <button type="submit" aria-label="Зарегистрироваться" className="login__saved-button" >Зарегистрироваться</button>
                         </form>
                         <Link to="/sign-in" className='login__subtitle'>Уже зарегистрированы? Войти </Link>
                     </div>

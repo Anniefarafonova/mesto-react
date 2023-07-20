@@ -13,13 +13,12 @@ export default function InfoTooltip({ isOpen, onClose, isDone }) {
                     className="popup__close"
                     onClick={onClose}
                 ></button>
-                <img
-                    className="popup__infoTooltip-logo"
-                    src={isDone ? { imageUnion } : { imageUnionNot }}
-                    alt={isDone
-                        ? "Удачная регистрация"
-                        : "Неудачная попытка"
-                    } />
+                <div className={`popup__infoTooltip-logo ${!isDone ? 'popup__infoTooltip-logo_error' : '' }`} />
+                {/* src={isDone ? { imageUnion } : { imageUnionNot }}
+                alt={isDone
+                    ? "Удачная регистрация"
+                    : "Неудачная попытка"
+                } /> */}
                 <h3 className="popup__title">
                     {isDone
                         ? "Вы успешно зарегистрировались"

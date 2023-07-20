@@ -36,6 +36,8 @@ function App() {
   // стейт статусa пользователя  
   const [loggedIn, setLoggedIn] = React.useState(false);
   const [isDone, setIsDone] = React.useState(false);
+  // стейт email
+  const [email, setEmail] = React.useState('');
 
   //функция открытия Edit
   function handleEditProfileClick() {
@@ -50,7 +52,7 @@ function App() {
     setIsAddPlacePopupOpen(true)
   }
   //функция открытия InfoTooltip
-  function handleCardClick() {
+  function handleInfoClick() {
     setIsInfoTooltipPopupOpen(true)
   }
   //функция открытия Delete
@@ -61,6 +63,10 @@ function App() {
   //функция открытия Card
   function handleCardClick(card) {
     setSelectedCard(card)
+  }
+   //функция email
+   function handleEmail(email) {
+    setEmail(email)
   }
 
   //функция закрытия попапоы
@@ -136,15 +142,31 @@ function App() {
   //функция регистации
   function onRegister(data) {
     Auth
-      .register(data).then((res) => {
+      .register(data)
+      .then((res) => {
         setIsDone(true)
+        handleInfoClick()
         navigate('/sign-in', { replace: true });
       })
-      .catch((error) => console.error(`Ошибка при регистрации ${error}`));
+      .catch((error) => console.error(`Ошибка при регистрации ${error}`))
+    setIsDone(false)
+    handleInfoClick()
   }
   //функция авторизации
-  function onLogin() {
-    setLoggedIn(true)
+  function onLogin(password, email) {
+    Auth
+      .authorize(password, email)
+      .then((res) => {
+        setLoggedIn(true)
+        navigate('/', { replace: true });
+        setEmail(email)
+      })
+      // })
+      .catch(err => console.log(err));
+    setLoggedIn(false)
+    setIsDone(false)
+    handleInfoClick()
+
   }
 
   //проверка токена
@@ -152,7 +174,7 @@ function App() {
     getTokenCheck();
   }, [])
 
-  const getTokenCheck = () => {
+  const getTokenCheck = (token) => {
     if (localStorage.getItem('jwt')) {
       const jwt = localStorage.getItem('jwt');
       Auth
@@ -160,6 +182,16 @@ function App() {
         .then((res) => {
           if (res) {
             setLoggedIn(true);
+            setEmail(res.email)
+            // console.log(res);
+            console.log(res);
+            console.log(email);
+            console.log(res.email)
+
+            // setLoggedIn(true);
+            // setEmail(res.data.email)
+            // setEmail(email);
+
             navigate("/", { replace: true })
           }
         });
@@ -213,12 +245,15 @@ function App() {
                     onDelete={handleDeleteClick}
                     onCardLike={handleCardLike}
                     card={card}
+                    email={email}
                     {...props}
                   />
                 )}
                 loggedIn={loggedIn} />
             }
           />
+
+
 
 
 
