@@ -140,9 +140,9 @@ function App() {
   }
 
   //функция регистации
-  function onRegister(data) {
+  function onRegister(password, email) {
     Auth
-      .register(data)
+      .register(password, email)
       .then((res) => {
         setIsDone(true)
         handleInfoClick()
@@ -160,13 +160,13 @@ function App() {
         setLoggedIn(true)
         navigate('/', { replace: true });
         setEmail(email)
+        console.log(email);
       })
       // })
       .catch(err => console.log(err));
     setLoggedIn(false)
     setIsDone(false)
     handleInfoClick()
-
   }
 
   //проверка токена
@@ -175,24 +175,15 @@ function App() {
   }, [])
 
   const getTokenCheck = (token) => {
-    if (localStorage.getItem('jwt')) {
-      const jwt = localStorage.getItem('jwt');
+    if (localStorage.getItem('token')) {
+      const token = localStorage.getItem('token');
       Auth
-        .tokenCheck(jwt)
+        .tokenCheck(token)
         .then((res) => {
           if (res) {
             setLoggedIn(true);
-            setEmail(res.email)
-            // console.log(res);
-            console.log(res);
-            console.log(email);
-            console.log(res.email)
-
-            // setLoggedIn(true);
-            // setEmail(res.data.email)
-            // setEmail(email);
-
             navigate("/", { replace: true })
+            setEmail(res.data.email)
           }
         });
     }

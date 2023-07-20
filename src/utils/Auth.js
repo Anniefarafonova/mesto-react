@@ -1,15 +1,15 @@
 export const BASE_URL = 'https://auth.nomoreparties.co';
 
-// export const register = (data) => {
-export const register = (password, email) => {
+export const register = (data) => {
+// export const register = (password, email) => {
   return fetch(`${BASE_URL}/signup`, {
     method: 'POST',
     headers: {
       'Accept': 'application/json',
       'Content-Type': 'application/json'
     },
-    // body: JSON.stringify({ password: data.password, email: data.email })
-    body: JSON.stringify(password, email)
+    body: JSON.stringify({ password: data.password, email: data.email })
+    // body: JSON.stringify(password, email)
   })
     .then((response) => {
       return response.json();
@@ -19,7 +19,7 @@ export const register = (password, email) => {
     })
     .catch((err) => console.log(err));
 };
-
+// export const authorize = (data) => {
 export const authorize = (password, email) => {
   return fetch(`${BASE_URL}/signin`, {
     method: 'POST',
@@ -28,21 +28,19 @@ export const authorize = (password, email) => {
       'Content-Type': 'application/json'
     },
     body: JSON.stringify({ password, email })
-    
+    // body: JSON.stringify({ password: data.password, email: data.email })
   })
     .then((response => response.json()))
     .then((res) => {
       return res;
     })
-    // .then((data) => {
-      // if (data.jwt) {
-        // if (data.user) {
-      //   localStorage.setItem('jwt', data.jwt);
-      //   return data;
-      // } else {
-      //   return;
-      // }
-    // })
+    .then((data) => {
+      if (data.token) {
+       
+        localStorage.setItem('token', data.token);
+        return data;
+      }
+    })
     .catch(err => console.log(err))
 };
 

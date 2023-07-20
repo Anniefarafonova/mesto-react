@@ -8,8 +8,8 @@ import * as Auth from "../../utils/Auth";
 
 export default function Register({ onRegister }) {
     const initialValuesRegister = {
-        email: '',
         password: '',
+        email: '',
     };
     const [valuesRegister, setValuesRegister] = useState(initialValuesRegister);
     const handleChange = (e) => {
