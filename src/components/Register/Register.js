@@ -14,7 +14,6 @@ export default function Register({ onRegister }) {
     const [valuesRegister, setValuesRegister] = useState(initialValuesRegister);
     const handleChange = (e) => {
         const { name, value } = e.target;
-        console.log(e.target);
         setValuesRegister({
             ...valuesRegister,
             [name]: value

@@ -143,12 +143,16 @@ function App() {
       .then((res) => {
         setIsInfoTooltipPopupOpen(true)
         setIsDone(true)
-        // handleInfoClick(true)
+        console.log(res);
+        console.log('ok registr');
         navigate('/sign-in', { replace: true });
       })
-      .catch((error) => console.error(`Ошибка при регистрации ${error}`))
-    setIsInfoTooltipPopupOpen(true)
-    setIsDone(false)
+      .catch((error) => {
+        console.error(`Ошибка при регистрации ${error}`)
+        console.log('ne ok registr');
+        setIsInfoTooltipPopupOpen(true)
+        setIsDone(false)
+      })
   }
   //функция авторизации
   function onLogin(password, email) {
@@ -158,12 +162,13 @@ function App() {
         setLoggedIn(true)
         navigate('/', { replace: true });
         setEmail(email)
-        console.log(email);
       })
-      // })
-      .catch(err => console.log(err));
-      setIsInfoTooltipPopupOpen(true)
-      setIsDone(false)
+      .catch((error) => {
+        console.error(`Ошибка при авторизации ${error}`)
+        console.log('ne ok auth');
+        setIsInfoTooltipPopupOpen(true)
+        setIsDone(false)
+      })
   }
 
   //проверка токена
@@ -199,28 +204,9 @@ function App() {
   return (
     <CurrentUserContext.Provider value={currentUser}>
       <div className="page">
-
         <Routes>
           <Route path="/sign-in" element={<Login onLogin={onLogin} />} />
-
           <Route path="/sign-up" element={<Register onRegister={onRegister} />} />
-          {/* <Route path="/sign-up">
-            <Header>
-              <Link to="/sign-in" className='login__text'>
-                Войти
-              </Link> 
-            </Header> */}
-
-          {/* <Route path="/ty" element={<Main
-              onEditProfile={handleEditProfileClick}
-              onEditAvatar={handleEditAvatarClick}
-              onAddPlace={handleAddPlaceClick}
-              onCardClick={handleCardClick}
-              onDelete={handleDeleteClick}
-              onCardLike={handleCardLike}
-              card={card}
-            />}/> */}
-
           <Route path="/"
             element={
               <ProtectedRouteElement
@@ -240,11 +226,6 @@ function App() {
                 loggedIn={loggedIn} />
             }
           />
-
-
-
-
-
         </Routes>
         <Footer />
 

@@ -12,7 +12,6 @@ import { Link } from 'react-router-dom';
 export default function Main({ onEditProfile, onEditAvatar, onAddPlace, onCardClick, onDelete, card, onCardLike, onCardDelete, email }) {
   const currentUser = useContext(CurrentUserContext)
   
-  console.log(email);
 
   return (
     <>

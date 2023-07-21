@@ -1,5 +1,4 @@
 import imageLogo from '../../images/logo.svg'
-import { Outlet } from 'react-router-dom';
 
 export default function Header({ children }) {
   return (
@@ -9,7 +8,6 @@ export default function Header({ children }) {
         src={imageLogo}
         alt="Логотип"
       />
-        <Outlet />
       {children}
     </header>
   )

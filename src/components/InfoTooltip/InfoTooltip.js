@@ -29,6 +29,7 @@ export default function InfoTooltip({ isOpen, onClose, isDone }) {
         </div>
     )
 }
+
  // <PopupWithForm
         //     name='union'
         //     title='Что-то пошло не так! Попробуйте ещё раз.'
