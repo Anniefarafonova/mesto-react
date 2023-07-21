@@ -9,3 +9,9 @@
     color: #FFFFFF;
     text-decoration: none;
 }
+@media screen and (max-width: 650px) {
+    .header__list {
+        font-size: 14px;
+    
+    }
+}

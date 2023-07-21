@@ -11,3 +11,8 @@
     justify-content: center;
     margin: 15px auto 0;
 }
+@media screen and (max-width: 650px) {
+    .login__subtitle {
+        max-width: 260px;
+    }
+}
